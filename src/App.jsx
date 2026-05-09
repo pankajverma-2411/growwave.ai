@@ -663,13 +663,12 @@ const handleChange = (e) => {
 
 const handleSubmit = async () => {
   try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxlyVwAmSUs5VcusY6nKyu6pWyEJbcVMWCkJ2BhTAkIzRjqerx7TEoVZ9hNTg7dAfQM/exec", {
+    const res = await fetch("https://growwave-ai-backend.onrender.com/api/bookings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-      mode: "no-cors",
     });
 
     const data = await res.json();
@@ -679,20 +678,23 @@ const handleSubmit = async () => {
     }
 
     console.log("SUCCESS:", data);
+
     setFormData({
       name: "",
       email: "",
       phone: "",
       message: "",
     });
+
     setShowForm(false);
-    alert("Booking submitted");
+
+    alert("Booking submitted successfully!");
 
   } catch (err) {
     console.error(err);
     alert("Error submitting form");
   }
-}; 
+};
 
   React.useEffect(() => {
     let isMounted = true;
@@ -1264,7 +1266,7 @@ function AdminPanel() {
     try {
       setLoading(true);
       setError("");
-      const res = await fetch("http://localhost:5000/api/bookings");
+      const res = await fetch("https://growwave-ai-backend.onrender.com/api/bookings");
       const data = await res.json();
 
       if (!res.ok) {
@@ -1294,7 +1296,7 @@ function AdminPanel() {
     );
 
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+      const res = await fetch(`https://growwave-ai-backend.onrender.com/api/bookings/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
